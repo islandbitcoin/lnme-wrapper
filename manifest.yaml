@@ -26,15 +26,10 @@ main:
     main: /root
     lnd: /mnt/lnd
 health-checks:
-  main:
+  web-ui:
     name: Web UI
     success-message: lnme is ready to visit in a web browser
-    type: docker
-    image: main
-    entrypoint: check-web.sh
-    args: []
-    system: false
-    io-format: json
+    type: script
 config: 
   get:
     type: script
