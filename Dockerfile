@@ -1,6 +1,5 @@
 FROM --platform=linux/arm64/v8 ghcr.io/bumi/lnme:master
 
-#RUN apk add tini yq git curl sudo && \
 RUN apk add tini yq sudo && \
     rm -f /var/cache/apk/*
 
