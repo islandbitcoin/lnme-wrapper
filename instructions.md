@@ -1,7 +1,14 @@
-# Welcome to SearXNG!
+# Welcome to LnMe!
 
-A Privacy-respecting, hackable metasearch engine.
+Your friendly Bitcoin Lightning ⚡ payment page ⚡
+
 ## Usage Instructions
 
-Open SearXNG by using the `LAUNCH UI` button.
+Open LnMe by using the `LAUNCH UI` button.
 
+## Lightning Address
+
+You can now accept lighting payments using your LnMe Tor hidden service address. 
+
+Your Lightning Address Format:
+`<anything>@<lnme_tor_address.onion>`

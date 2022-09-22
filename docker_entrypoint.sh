@@ -2,25 +2,14 @@
 
 set -e
 
-export ULTRA_SECRET_KEY=$(openssl rand -hex 32)
+echo "Setting environment variables..."
+export LNURLP_COMMENTS=$(yq e '.lnurlp-comment-allowed' /root/start9/config.yaml)
+export REQUEST_LIMIT=$(yq e '.request-limit' /root/start9/config.yaml)
 
-_term() {
-  echo "caught SIGTERM signal!"
-  kill -TERM "$redis_process" 2>/dev/null
-}
-
-# Configuring SearXNG
-sed -i "s|ultrasecretkey|$ULTRA_SECRET_KEY|g" /usr/local/searxng/utils/templates/etc/searxng/settings.yml
-sed -i "s|ultrasecretkey|$ULTRA_SECRET_KEY|g" /etc/searxng/settings.yml
-
-echo 'Starting Redis...'
-redis-server --save "" --appendonly "no" &
-redis_process=$!
-
-echo "Starting SearXNG..."
-sleep 10
-/usr/local/searxng/dockerfiles/docker-entrypoint.sh
-
-trap _term SIGTERM
-
-wait -n $redis_process
+echo 'Starting LnMe...'
+exec tini ./lnme \
+  --lnd-address=lnd.embassy:10009 \
+  --lnd-cert-path=/mnt/lnd/tls.cert \
+  --lnd-macaroon-path=/mnt/lnd/invoice.macaroon \
+  --lnurlp-comment-allowed=$LNURLP_COMMENTS \
+  --request-limit=$REQUEST_LIMIT

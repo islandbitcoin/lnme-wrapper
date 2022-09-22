@@ -2,4 +2,19 @@
 
 import { compat, types as T } from "../deps.ts";
 
-export const getConfig: T.ExpectedExports.getConfig = compat.getConfig({});
+export const getConfig: T.ExpectedExports.getConfig = compat.getConfig({
+  "lnurlp-comment-allowed": {
+    "type": "string",
+    "name": "LNURL-pay Comment Length",
+    "description": "Allowed length of LNURL-pay comments, maximum characters is 2000",
+    "nullable": false,
+    "default": "210"
+  },
+  "request-limit": {
+      "type": "string",
+      "name": "Request Limit",
+      "description": "Limit the allowed requests per second",
+      "default": "5",
+      "nullable": false
+  }
+});

@@ -1,6 +1,6 @@
-# Wrapper for SearXNG
+# Wrapper for LnMe
 
-SearXNG is a GUI for BalanceOfSatoshis. You can run SearXNG on EmbassyOS by installing an .s9pk file, or you can build your own .s9pk file by following the instuctions below.
+LnMe is your friendly LN payment page. You can run LnMe on EmbassyOS by installing an .s9pk file, or you can build your own .s9pk file by following the instuctions below.
 
 ## Dependencies
 
@@ -54,20 +54,20 @@ cd embassy-os/backend/
 ./install-sdk.sh
 embassy-sdk init
 ```
-Now you are ready to build your **SearXNG** service
+Now you are ready to build your **LnMe** service
 
 ## Cloning
 
 Clone the project locally. 
 
 ```
-git clone https://github.com/Start9Labs/SearXNG-wrapper.git
-cd SearXNG-wrapper
+git clone https://github.com/Start9Labs/lnme-wrapper.git
+cd LnMe-wrapper
 ```
 
 ## Building
 
-To build the **SearXNG** service, run the following command:
+To build the **LnMe** service, run the following command:
 
 ```
 make
@@ -81,11 +81,11 @@ Run the following commands to determine successful install:
 ```
 embassy-cli auth login
 #Enter your embassy password
-embassy-cli --host https://embassy-q1w2e3r4.local package install SearXNG.s9pk
+embassy-cli --host https://embassy-q1w2e3r4.local package install lnme.s9pk
 ```
-**Tip:** You can also install the SearXNG.s9pk using **Sideload Service** under the **Embassy > SETTINGS** section.
+**Tip:** You can also install the LnMe.s9pk using **Sideload Service** under the **Embassy > SETTINGS** section.
 ## Verify Install
 
-Go to your Embassy Services page, select **SearXNG**, configure and start the service.
+Go to your Embassy Services page, select **LnMe**, configure and start the service.
 
 **Done!** 

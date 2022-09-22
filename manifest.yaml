@@ -1,17 +1,17 @@
-id: searxng 
-title: "SearXNG"
-version: 1.0.0
+id: lnme 
+title: "LnMe"
+version: 1.5.1
 release-notes: "Initial Release for EmbassyOS"
 license: mit
-wrapper-repo: "https://github.com/Start9Labs/searxng-wrapper"
-upstream-repo: "https://github.com/searxng/searxng-docker"
-support-site: "https://github.com/searxng/searxng-docker/issues"
-marketing-site: "https://docs.searxng.org"
+wrapper-repo: "https://github.com/islandbitcoin/lnme-wrapper"
+upstream-repo: "https://github.com/bumi/lnme"
+support-site: "https://github.com/bumi/lnme/issues"
+marketing-site: "https://michaelbumann.com"
 build: ["make"]
 description:
-  short: Privacy-respecting, hackable metasearch engine
+  short: Your friendly Bitcoin Lightning ⚡ payment page ⚡
   long: |
-    SearXNG is a free internet metasearch engine which aggregates results from more than 70 search services. Users are neither tracked nor profiled. Additionally, SearXNG can be used over Tor for online anonymity.
+    LnMe is a personal Bitcoin Lightning payment page or widget and self-hosted Lightning Address server.
 assets:
   license: LICENSE
   icon: icon.svg
@@ -23,12 +23,12 @@ main:
   entrypoint: docker_entrypoint.sh
   args: []
   mounts:
-    main: /etc/searxng
-    redis: /var/lib/redis
+    main: /root
+    lnd: /mnt/lnd
 health-checks:
   main:
     name: Web UI
-    success-message: SearXNG is ready to visit in a web browser
+    success-message: lnme is ready to visit in a web browser
     type: docker
     image: main
     entrypoint: check-web.sh
@@ -45,28 +45,33 @@ properties:
 volumes:
   main:
     type: data
-  redis:
-    type: data
+  lnd:
+    type: pointer
+    package-id: lnd
+    volume-id: main
+    path: "/public"
+    readonly: true
 interfaces:
   main:
-    name: SearXNG Web Interface
+    name: LnMe Web Interface
     description: Specifies the interface to listen on for HTTP connections.
     tor-config:
       port-mapping:
-        80: "8080"
-        8888: "8888"
+        80: "1323"
     lan-config:
       443:
         ssl: true
-        internal: 8080
-      8888:
-        ssl: true
-        internal: 8888
+        internal: 1323
     ui: true
     protocols:
       - tcp
       - http
-dependencies: {}
+dependencies: 
+  lnd:
+    version: ">=0.11.0 <0.16.0"
+    requirement:
+      type: required
+    config: ~
 backup:
   create:
     type: docker
@@ -77,10 +82,10 @@ backup:
       - duplicity
       - create
       - /mnt/backup
-      - /etc/searxng/data
+      - /root/data
     mounts:
       BACKUP: "/mnt/backup" 
-      main: "/etc/searxng/data"
+      main: "/root/data"
   restore:
     type: docker
     image: compat
@@ -89,11 +94,11 @@ backup:
     args:
       - duplicity
       - restore
-      - /etc/searxng/data
+      - /root/data
       - /mnt/backup
     mounts:
       BACKUP: "/mnt/backup"
-      main: "/etc/searxng/data"
+      main: "/root/data"
 migrations:
  from:
    "*":
