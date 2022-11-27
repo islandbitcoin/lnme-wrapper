@@ -1,7 +1,9 @@
 id: lnme 
 title: "LnMe"
 version: 1.5.1
-release-notes: "Initial Release for EmbassyOS"
+release-notes: | 
+  * LnMe v1.5.1 [Release Notes](https://github.com/bumi/lnme/releases/tag/1.5.1)
+  * Added x86 architecture support
 license: mit
 wrapper-repo: "https://github.com/islandbitcoin/lnme-wrapper"
 upstream-repo: "https://github.com/bumi/lnme"
@@ -16,7 +18,6 @@ assets:
   license: LICENSE
   icon: icon.svg
   instructions: instructions.md
-  docker-images: image.tar
 main:
   type: docker
   image: main
